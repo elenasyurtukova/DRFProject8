@@ -1,0 +1,7 @@
+**
+!config
+!users
+!manage.py
+!poetry.lock
+!pyproject.toml
+!.env.local

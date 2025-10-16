@@ -3,6 +3,7 @@ import sys
 from datetime import timedelta
 from pathlib import Path
 
+from django.conf.global_settings import STATIC_ROOT
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -112,6 +113,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = (BASE_DIR / "static",)
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
