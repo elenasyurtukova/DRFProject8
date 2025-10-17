@@ -1,5 +1,5 @@
 # Задаем базовый образ (версия не менее версии Python в проекте)
-FROM python:3.13-slim
+FROM python:3.13
 
 # Задаем рабочую директорию, в которой будет располагаться код
 WORKDIR /app
@@ -10,9 +10,11 @@ RUN pip install poetry==2.2.1
 # копируем файлы с зависимостями в рабочую директорию
 COPY pyproject.toml poetry.lock ./
 
-# Инициализируем poetry без создания виртуального окружения для установки основных зависимостей
-RUN poetry config virtualenvs.create false && \
-    poetry install --no-root --only main
+# Отключаем создание нового виртуального окружения
+RUN poetry config virtualenvs.create false
+
+# Устанавливаем только зависимости
+RUN poetry install --no-root
 
 # Копируем остальной код проекта
 COPY . .
