@@ -75,7 +75,7 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          docker compose build
+          docker compose build -t ${{ secrets.DOCKER_HUB_USERNAME }}/DRFProject8:${{ github.sha }}
           docker compose push
 
   deploy:
@@ -88,39 +88,10 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Установка необходимых пакетов на сервере
-        run: |
-          ssh -o StrictHostKeyChecking=no -vT ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          sudo apt-get update
-          sudo apt-get install -y python3-venv python3-pip
-          EOF
-
-      - name: Установка зависимостей
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          sudo apt install -y python3-poetry
-          sudo cd ${{ secrets.DEPLOY_DIR }}
-          poetry config virtualenvs.create true
-          poetry install --no-root
-          EOF
-
-      - name: copy file
-        uses: appleboy/scp-action@v0.1.7
-        with:
-            host: ${{ secrets.SERVER_IP }}
-            username: ${{ secrets.SSH_USER }}
-            key: ${{ secrets.SSH_KEY }}
-            source: "docker-compose.yml,.env, nginx.conf"
-            target: ${{ secrets.DEPLOY_DIR }}
-
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << EOF
-          cd ./DRFProject8
-          sudo docker-compose pull
+          sudo docker-compose pull ${{ secrets.DOCKER_HUB_USERNAME }}/DRFProject8:${{ github.sha }}
           sudo docker-compose down --remove-orphans || true
           sudo docker-compose up -d --force-recreate
           EOF
