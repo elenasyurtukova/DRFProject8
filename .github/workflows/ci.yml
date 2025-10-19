@@ -102,7 +102,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
           cd ${{ secrets.DEPLOY_DIR }}
-          sudo apt install python3-poetry
+          sudo apt install -y python3-poetry
           poetry config virtualenvs.create true
           poetry install --no-root
           EOF
