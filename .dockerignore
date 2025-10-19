@@ -1,7 +1,8 @@
 **
 !config
 !users
+!usefulthings
 !manage.py
 !poetry.lock
 !pyproject.toml
-!.env.local
+!static

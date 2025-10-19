@@ -3,16 +3,15 @@ import sys
 from datetime import timedelta
 from pathlib import Path
 
-from django.conf.global_settings import STATIC_ROOT
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(override=True)
-if os.getenv('DJANGO_ENV') == 'docker':
-    load_dotenv('.env.docker')
+if os.getenv("DJANGO_ENV") == "docker":
+    load_dotenv(".env.docker")
 else:
-    load_dotenv('.env.local')
+    load_dotenv(".env.local")
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
@@ -69,11 +68,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-if 'test' in sys.argv:
+if "test" in sys.argv:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'test_db.sqlite3',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "test_db.sqlite3",
         }
     }
 else:

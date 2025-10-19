@@ -1,14 +1,9 @@
 from django.urls import path
 
 from usefulthings.apps import UsefulthingsConfig
-from usefulthings.views import (
-    PublishedWontListView,
-    WontCreateApiView,
-    WontDestroyApiView,
-    WontListApiView,
-    WontRetrieveApiView,
-    WontUpdateApiView,
-)
+from usefulthings.views import (PublishedWontListView, WontCreateApiView,
+                                WontDestroyApiView, WontListApiView,
+                                WontRetrieveApiView, WontUpdateApiView)
 
 app_name = UsefulthingsConfig.name
 
