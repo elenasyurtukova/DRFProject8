@@ -75,7 +75,7 @@ jobs:
 
       - name: Build and push Docker images
         run: |
-          docker compose build ${{ secrets.DOCKER_HUB_USERNAME }}/DRFProject8:${{ github.sha }}
+          docker compose build
           docker compose push
 
   deploy:
