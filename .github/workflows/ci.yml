@@ -101,8 +101,8 @@ jobs:
       - name: Установка зависимостей
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          sudo cd ${{ secrets.DEPLOY_DIR }}
           sudo apt install -y python3-poetry
+          sudo cd ${{ secrets.DEPLOY_DIR }}
           poetry config virtualenvs.create true
           poetry install --no-root
           EOF
