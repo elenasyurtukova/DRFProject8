@@ -110,7 +110,7 @@ jobs:
           cd ./DRFProject8
           sudo apt install curl
           curl -sSL https://install.python-poetry.org | python3
-          poetry env use python3.13
+          poetry env use /usr/bin/python3.13
           poetry config virtualenvs.create true
           poetry install --no-root
           EOF
