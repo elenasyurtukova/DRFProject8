@@ -110,7 +110,6 @@ jobs:
           pip install --upgrade pip setuptools
           sudo apt install curl
           curl -sSL https://install.python-poetry.org | python3
-          poetry env use python3.13
           poetry config virtualenvs.create true
           poetry install --no-root
           EOF
