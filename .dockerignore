@@ -1,8 +1,8 @@
-**
-!config
-!users
-!usefulthings
-!manage.py
-!poetry.lock
-!pyproject.toml
-!static
+.git
+.gitignore
+.env.docker
+.env.local
+venv
+__pycache__
+*.pyc
+test_db.sqlite3
