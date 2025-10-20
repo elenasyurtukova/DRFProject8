@@ -107,6 +107,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
           cd ./DRFProject8
+          pip install --upgrade pip setuptools
           sudo apt install curl
           curl -sSL https://install.python-poetry.org | python3
           poetry env use python3.13
