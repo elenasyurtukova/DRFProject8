@@ -123,6 +123,12 @@ jobs:
           source: "docker-compose.yml,.env.docker,nginx.conf"
           target: ${{ secrets.DEPLOY_DIR }}
 
+      - name: Create .env.docker file
+        run: |
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env.docker
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env.docker
+          echo "POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}" >> .env.docker   
+
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
