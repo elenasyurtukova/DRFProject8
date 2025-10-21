@@ -88,30 +88,27 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
+      - name: Check out code
+        uses: actions/checkout@v3
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.13"
-
-      - name: Check out code
-        uses: actions/checkout@v3
 
       - name: Установка необходимых пакетов на сервере
         run: |
           ssh -o StrictHostKeyChecking=no -vT ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
           sudo apt-get update
           sudo apt-get install -y python3-venv python3-pip
-          sudo apt-get install python3-dev
-          sudo apt-get install python3-dev libpq-dev
           EOF
 
       - name: Установка зависимостей
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          cd ./DRFProject8
+          cd ${{ secrets.DEPLOY_DIR }}
           sudo apt install curl
           curl -sSL https://install.python-poetry.org | python3
-          poetry env use /usr/bin/python3.13
           poetry config virtualenvs.create true
           poetry install --no-root
           EOF
